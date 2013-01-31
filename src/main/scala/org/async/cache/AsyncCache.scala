@@ -1,16 +1,15 @@
 package org.async.cache
 
-import concurrent.Promise
+import scala.concurrent._
 
+trait AsyncCache[A, B] {
 
-trait AsyncCache[A,B] {
+  type Data = Option[B]
 
+  def get(key: A): Future[Data]
 
-  case class Entry(k: A, v:B)
-
-
-  def insert(entry: => Entry): Promise[Entry]
-
+  def exists(key: A): Future[Boolean]
 }
+
 
 
