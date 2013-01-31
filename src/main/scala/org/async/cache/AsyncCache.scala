@@ -12,4 +12,9 @@ trait AsyncCache[A, B] {
 }
 
 
+trait MutableAsyncCache[A, B] extends AsyncCache[A, B] {
+
+  def put(key:A)(value: B): Future[Unit]
+
+}
 
