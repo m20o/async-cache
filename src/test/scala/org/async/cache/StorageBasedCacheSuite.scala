@@ -6,10 +6,14 @@ import collection.mutable._
 import concurrent.ExecutionContext
 import ExecutionContext.Implicits._
 import scala.util.Try
+import storage.MapStorage
 
-class MapBasedCacheSuite extends FunSuite {
+class StorageBasedCacheSuite extends FunSuite {
 
-  val cache: MapBasedCache[String, String] = new MapBasedCache[String, String](Map("John" -> "Doe", "Jane" -> "Doe")) {}
+  val cache: StorageBasedCache[String, String] = new StorageBasedCache[String, String] {
+     val storage = new MapStorage[String, String](Map("John" -> "Doe", "Jane" -> "Doe"))
+  }
+  // (Map("John" -> "Doe", "Jane" -> "Doe")) {}
 
   test("Should check for esistence of Jane") {
     cache.exists("Jane").onComplete {
